@@ -44,7 +44,7 @@ i1, i2, i3 = st.columns(3)
 with i2.container(border=True):
     st.image(im1)
     st.markdown(
-        "<h6 style='text-align: center; color: black;'>" + song + "<h6>" + "<center><text style='text-align: center; color: grey;'>" + artist + "<text></center>",
+        "<h6 style='text-align: center; color: white;'>" + song + "<h6>" + "<center><text style='text-align: center; color: grey;'>" + artist + "<text></center>",
         unsafe_allow_html=True)
 
 # i2.subheader(song + '\n' + album + '\n' + artist + '\n' + genre)
@@ -67,7 +67,7 @@ with st.container(border=True):
     r1, r2 = st.columns(2)
     "---"
 
-    st.markdown("<h4 style='text-align: center; color: black;'>You may also like: </h4>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: white;'>You may also like: </h4>", unsafe_allow_html=True)
 
     number = st.number_input("Number of similar songs", step=5, value=20, min_value=0)
 
