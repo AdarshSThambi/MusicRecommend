@@ -35,9 +35,7 @@ query_string = song + " " + artist
 output_dir = 'dataset'
 downloader.download(query_string, limit=1, output_dir=output_dir, adult_filter_off=True, force_replace=False,
                     timeout=20, verbose=True)
-# album = artists[artists["artists"] == artist]["album_name"][0:1]
-# st.dataframe(artists)
-# genre = artists[artists["artists"] == artist]["track_genre"][0:1]
+
 im1 = Image.open('/'.join([output_dir, query_string, 'Image_1.jpg']))
 i1, i2, i3 = st.columns(3)
 with i2.container(border=True):
@@ -88,3 +86,6 @@ with st.container(border=True):
 image = Image.open("cover.jpg")
 with st.sidebar:
     st.image(image, use_column_width="always")
+    st.caption("Music Recommender System")
+    st.caption("14-12-2023")
+    st.caption("Adarsh S Thambi")
