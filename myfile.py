@@ -26,17 +26,20 @@ c1, c2 = st.columns(2)
 
 track_name = tracks.track_name.unique()
 
-song = c1.selectbox('Select a song', placeholder='Type song name', options=track_name)
+song = c1.selectbox('Song', placeholder='Type song name', options=track_name)
 
 artists = tracks[tracks["track_name"] == song]["artists"]
-artist = c2.selectbox('Select an artist:', placeholder="Choose an Artist", options=artists)
+artist = c2.selectbox('Artist', placeholder="Choose an Artist", options=artists)
 
 query_string = song + " " + artist
 output_dir = 'dataset'
 downloader.download(query_string, limit=1, output_dir=output_dir, adult_filter_off=True, force_replace=False,
                     timeout=20, verbose=True)
 
-im1 = Image.open('/'.join([output_dir, query_string, 'Image_1.jpg']))
+try:
+    im1 = Image.open('/'.join([output_dir, query_string, 'Image_1.jpg']))
+except FileNotFoundError:
+    im1 = Image.open('dataset/Hunger Hans Zimmer/Image_1.jpg')
 i1, i2, i3 = st.columns(3)
 with i2.container(border=True):
     st.image(im1)
@@ -60,6 +63,7 @@ recom_df = recommender(song)
 # df2 = df[df["artists"] == artist][["track_name","album_name","artists"]].drop_duplicates()
 # df2["genre"] = df["track_genre"]
 with st.container(border=True):
+    st.subheader("Filters")
     r1, r2 = st.columns(2)
     "---"
 
@@ -80,12 +84,14 @@ with st.container(border=True):
         recom_df = recom_df[recom_df['track_genre'] == gen_filter]
     else:
         gen_filter = r2.selectbox('In this genre', options=recom_df['track_genre'], disabled=True)
-    st.dataframe(recom_df.head(number), column_config={1: 'Song Name'}, use_container_width=True,
+    st.dataframe(recom_df.head(number), column_config={1: 'Song Name', 2: 'Album', 3: 'Artist(s)', 4: 'Genre'},
+                 use_container_width=True,
                  hide_index=True)
 
 image = Image.open("cover.jpg")
 with st.sidebar:
-    st.image(image, use_column_width="always")
     st.caption("Music Recommender System")
     st.caption("14-12-2023")
+    st.image(image, use_column_width="always")
+
     st.caption("Adarsh S Thambi")
